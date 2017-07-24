@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -72,26 +72,43 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-contacts = __webpack_require__(1);
+contacts = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"contacts.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 console.log(contacts);
+var contacts = [{
+	id: 1,
+	name: "Friends",
+	type: "Group",
+	contacts: [{ id: 2, name: "Udi", type: "Contact" }, { id: 3, name: "Tommy", type: "Contact" }, {
+		id: 6,
+		name: "Old Friends",
+		type: "Group",
+		contacts: [{ id: 7, name: "Itay", type: "Contact" }]
+	}]
+}, {
+	id: 4,
+	name: "Family",
+	type: "Group",
+	contacts: [{ id: 5, name: "Roni", type: "Contact" }]
+}, { id: 8, name: "Ori", type: "Contact" }];
 
 // build ul and li in load
-function init() {
-	var ul = document.createElement('ul');
-	ul.setAttribute('class', 'list_contacts');
-	contacts.forEach(function (entry) {
-		var li = document.createElement('li');
-		li.setAttribute('id', entry.id);
-		li.setAttribute('type', entry.type);
-		li.innerHTML += entry.name;
-		if (entry.type == "Group") {
-			li.setAttribute('onclick', 'BuildChildren(this)');
-			li.setAttribute('class', 'close');
-		}
-		ul.appendChild(li);
-	});
-	document.getElementById("ph").appendChild(ul);
-}
+// function init(){
+var ul = document.createElement('ul');
+ul.setAttribute('class', 'list_contacts');
+contacts.forEach(function (entry) {
+	var li = document.createElement('li');
+	li.setAttribute('id', entry.id);
+	li.setAttribute('type', entry.type);
+	li.innerHTML += entry.name;
+	if (entry.type == "Group") {
+		li.setAttribute('onclick', 'BuildChildren(this)');
+		li.setAttribute('class', 'close');
+	}
+	ul.appendChild(li);
+});
+document.getElementById("ph").appendChild(ul);
+// }
+
 
 // get Object
 function getObjects(obj, key, val) {
@@ -141,26 +158,10 @@ function BuildChildren(build_children) {
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+__webpack_require__(0);
+__webpack_require__(0);
+(function webpackMissingModule() { throw new Error("Cannot find module \"app.bundle.js\""); }());
 
-
-var contacts = [{
-	id: 1,
-	name: "Friends",
-	type: "Group",
-	contacts: [{ id: 2, name: "Udi", type: "Contact" }, { id: 3, name: "Tommy", type: "Contact" }, {
-		id: 6,
-		name: "Old Friends",
-		type: "Group",
-		contacts: [{ id: 7, name: "Itay", type: "Contact" }]
-	}]
-}, {
-	id: 4,
-	name: "Family",
-	type: "Group",
-	contacts: [{ id: 5, name: "Roni", type: "Contact" }]
-}, { id: 8, name: "Ori", type: "Contact" }];
-module.exports = contacts;
 
 /***/ })
 /******/ ]);

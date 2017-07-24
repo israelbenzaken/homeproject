@@ -23,10 +23,90 @@
 		}
 	</style>
 
+	<script type="text/javascript">
+		var contacts = [
+		{
+			id:1,
+			name: "Friends",
+			type: "Group",
+			contacts: [
+			{id:2, name: "Udi", type: "Contact"},
+			{id:3, name: "Tommy", type: "Contact"},
+			{
+				id:6,
+				name: "Old Friends",
+				type: "Group",
+				contacts: [
+				{id:7, name: "Itay", type: "Contact"},
+				]
+			},
+			]
+		},
+		{
+			id:4,
+			name: "Family",
+			type: "Group",
+			contacts: [
+			{id:5, name: "Roni", type: "Contact"},
+			]
+		},
+		{id: 8, name: "Ori", type: "Contact"},
+		];
+		
+		// get Object
+		function getObjects(obj, key, val) {
+			var objects = [];
+			for (var i in obj) {
+				if (!obj.hasOwnProperty(i)) continue;
+				if (typeof obj[i] == 'object') {
+					objects = objects.concat(getObjects(obj[i], key, val));
+				} else if (i == key && obj[key] == val) {
+					objects.push(obj);
+				}
+			}
+			return objects;
+		}
+
+
+// build children if exists
+function BuildChildren(build_children) {
+	var obj = getObjects(contacts, 'id', build_children.id); // Returns an array of matching objects
+	if (obj[0].type == "Group") {
+		if (build_children.getAttribute('class') == "open") {
+			var elem = document.getElementsByClassName(build_children.id);
+			build_children.parentNode.removeChild(elem[0]);
+			build_children.setAttribute('class','close');
+			return;
+		}
+		else{
+			build_children.setAttribute('class','open');
+			var ul = document.createElement('ul');
+			ul.setAttribute('class',build_children.id);
+			obj[0].contacts.forEach(function(entry2) {
+				var li = document.createElement('li');
+				li.setAttribute('id',entry2.id);
+				if (entry2.type == "Group") {
+					li.setAttribute('onclick','BuildChildren(this)');
+				}
+				li.setAttribute('type',entry2.type);
+				li.innerHTML += entry2.name;
+				ul.appendChild(li);
+			});
+			var link = document.getElementById(build_children.id);
+			link.parentNode.insertBefore(ul, link.nextSibling);
+			return;
+		}
+		
+	}
+
+}
+</script>
+
 </head>
 <body>
 	<h1>Contact Tree</h1>
 	<ul id="ph"></ul>
 	<script src="bundle.js" charset="utf-8"></script>
+	
 </body>
 </html>
